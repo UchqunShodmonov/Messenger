@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "542565902157",
+    "project_id": "telegram-clone-c4adb",
+    "storage_bucket": "telegram-clone-c4adb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542565902157:android:f61c1f21484908da8a3904",
+        "android_client_info": {
+          "package_name": "uz.uchqun.telegramclone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542565902157-nbdh5g6n041ru1nmoh7lti1shobarqko.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpgEOxoOFWBfDhrAsqKmVORzi3V1ZogLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542565902157-nbdh5g6n041ru1nmoh7lti1shobarqko.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
