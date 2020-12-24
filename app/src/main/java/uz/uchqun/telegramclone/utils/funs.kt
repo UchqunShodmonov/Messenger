@@ -2,6 +2,7 @@ package uz.uchqun.telegramclone.utils
 
 import android.content.Context
 import android.content.Intent
+import android.provider.ContactsContract
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import uz.uchqun.telegramclone.R
+import uz.uchqun.telegramclone.model.CommanModel
 
 fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
@@ -26,14 +28,14 @@ fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
 fun AppCompatActivity.replaceFragment(fragment: Fragment) {
     supportFragmentManager.beginTransaction()
         .addToBackStack(null)
-        .replace(R.id.dataContainer, fragment)
+        .replace(R.id.data_container, fragment)
         .commit()
 }
 
 fun Fragment.replaceFragment(fragment: Fragment) {
     this.fragmentManager?.beginTransaction()
         ?.addToBackStack(null)
-        ?.replace(R.id.dataContainer, fragment)
+        ?.replace(R.id.data_container, fragment)
         ?.commit()
 }
 
@@ -64,4 +66,34 @@ fun ImageView.downloadAndSetImage(url: String) {
         .fit()
         .placeholder(R.drawable.default_photo)
         .into(this)
+}
+
+fun initContacts() {
+
+    //Reading contacts
+    if (checkPermision(READ_CONTACT)) {
+        var arrayContacts = arrayListOf<CommanModel>()
+        var cursor = APP_ACTIVITY.contentResolver.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            null,
+            null,
+            null,
+            null
+        )
+        cursor?.let {
+            while (cursor.moveToNext()) {
+                val fullName =
+                    it.getString(it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                val phone =
+                    it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                val newModul = CommanModel()
+                newModul.fullname = fullName
+                newModul.phone = phone.replace(Regex("[\\s,-]"), "")
+                arrayContacts.add(newModul)
+            }
+        }
+        cursor?.close()
+        updatePhoneToDatabase(arrayContacts)
+    }
+
 }

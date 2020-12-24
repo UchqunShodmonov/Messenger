@@ -21,8 +21,8 @@
     <TextView
         style="@style/smallText"
         android:layout_width="match_parent"
-        android:layout_marginStart="@dimen/horizontal_margin"
-        android:layout_marginEnd="@dimen/horizontal_margin"
+        android:layout_marginStart="@dimen/app_margin"
+        android:layout_marginEnd="@dimen/app_margin"
         android:padding="@dimen/appPadding"
         android:text="@string/settings_default_bio_advice"
         app:layout_constraintEnd_toEndOf="parent"

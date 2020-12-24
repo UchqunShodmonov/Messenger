@@ -23,7 +23,7 @@ class ChangeBioFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
-        val bio = USER.bio
+        val bio = USERModel.bio
         if (bio.equals("")) {
 
         } else {
@@ -66,7 +66,7 @@ class ChangeBioFragment : Fragment() {
             REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_BIO)
                 .setValue(bio).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        USER.bio = bio
+                        USERModel.bio = bio
                         fragmentManager?.popBackStack()
                     }
                 }

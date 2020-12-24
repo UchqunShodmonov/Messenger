@@ -32,7 +32,7 @@
         android:id="@+id/register_sent_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/horizontal_margin"
+        android:layout_margin="@dimen/app_margin"
         android:gravity="center"
         android:text="@string/register_default_sent_text"
         android:textSize="@dimen/smallText"

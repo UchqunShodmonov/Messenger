@@ -55,23 +55,28 @@ class EnterCodeFragment(val mPhoneNumber: String, val id: String) : Fragment() {
 
     private fun enterCode() {
         var credential = PhoneAuthProvider.getCredential(id, code)
-        AUTH.signInWithCredential(credential).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val uid = AUTH.currentUser?.uid.toString()
-                val dataMap = mutableMapOf<String, Any>()
-                dataMap[CHILD_ID] = uid
-                dataMap[CHILD_PHONE] = mPhoneNumber
-                dataMap[CHILD_USERNAME] = uid
+        AUTH.signInWithCredential(credential).addOnSuccessListener {
 
-                REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dataMap)
-                    .addOnCompleteListener { task2->
-                        if (task2.isSuccessful){
-                            showToast("Welcome")
+            val uid = AUTH.currentUser?.uid.toString()
+            val dataMap = mutableMapOf<String, Any>()
+            dataMap[CHILD_ID] = uid
+            dataMap[CHILD_PHONE] = mPhoneNumber
+            dataMap[CHILD_USERNAME] = uid
+
+
+            REF_DATABASE_ROOT.child(NODE_PHONES).child(mPhoneNumber).setValue(CURRENT_UID)
+                .addOnSuccessListener {
+                    REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dataMap)
+                        .addOnSuccessListener {
                             (activity as RegisterActivity).replaceActivity(MainActivity())
-                        }else showToast(task2.exception?.message.toString())
-                    }
+                        }.addOnFailureListener {
+                            showToast(it.message.toString())
+                        }
+                }
 
-            } else showToast(task.exception?.message.toString())
+
+        }.addOnFailureListener {
+            showToast(it.message.toString())
         }
     }
 

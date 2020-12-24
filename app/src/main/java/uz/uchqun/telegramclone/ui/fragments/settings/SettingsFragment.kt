@@ -36,8 +36,6 @@ class SettingsFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         APP_ACTIVITY.mAppDrawer.enableDrawer()
-
-
     }
 
 
@@ -48,14 +46,14 @@ class SettingsFragment : Fragment() {
     }
 
     private fun initFields() {
-        if (USER.bio.equals("")) {
+        if (USERModel.bio.equals("")) {
             mBinding.settingsBio.text = "Bio"
-        } else mBinding.settingsBio.text = USER.bio
-        mBinding.settingsUserFullName.text = USER.fullname
-        mBinding.settingsPhoneNumber.text = USER.phone
-        mBinding.settingsUserStatus.text = USER.status
-        mBinding.settingsUsername.text = USER.username
-        mBinding.settingsUserStatus.text = USER.status
+        } else mBinding.settingsBio.text = USERModel.bio
+        mBinding.settingsUserFullName.text = USERModel.fullname
+        mBinding.settingsPhoneNumber.text = USERModel.phone
+        mBinding.settingsUserStatus.text = USERModel.status
+        mBinding.settingsUsername.text = USERModel.username
+        mBinding.settingsUserStatus.text = USERModel.status
 
         mBinding.settingsBtnChangeUsername.setOnClickListener {
             replaceFragment(ChangeUsernameFragment())
@@ -66,7 +64,7 @@ class SettingsFragment : Fragment() {
         mBinding.settingsChangePhoto.setOnClickListener {
             changePhotoUser()
         }
-        mBinding.settingsUserImage.downloadAndSetImage(USER.photoUrl)
+        mBinding.settingsUserImage.downloadAndSetImage(USERModel.photoUrl)
 
     }
 
@@ -95,7 +93,7 @@ class SettingsFragment : Fragment() {
                     putUrlToDatabase(it) {
                         mBinding.settingsUserImage.downloadAndSetImage(it)
                         showToast(getString(R.string.toast_data_update))
-                        USER.photoUrl = it
+                        USERModel.photoUrl = it
                         APP_ACTIVITY.mAppDrawer.updateHeader()
                     }
                 }
@@ -111,6 +109,7 @@ class SettingsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.settings_menu_exit -> {
+                AppStates.updateState(AppStates.OFFLINE)
                 AUTH.signOut()
                 APP_ACTIVITY.replaceActivity(RegisterActivity())
             }

@@ -23,7 +23,7 @@ class ChangeNamFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val fullnameList: List<String> = USER.fullname.split(" ")
+        val fullnameList: List<String> = USERModel.fullname.split(" ")
         setHasOptionsMenu(true)
         if (fullnameList.size > 1) {
             mBinding.settingsInputFirstName.setText(fullnameList[0])
@@ -73,7 +73,7 @@ class ChangeNamFragment : Fragment() {
                 .setValue(fullName).addOnCompleteListener {
                     if (it.isSuccessful) {
                         showToast(getString(R.string.toast_data_update))
-                        USER.fullname = fullName
+                        USERModel.fullname = fullName
                         APP_ACTIVITY.mAppDrawer.updateHeader()
                         fragmentManager?.popBackStack()
                     }

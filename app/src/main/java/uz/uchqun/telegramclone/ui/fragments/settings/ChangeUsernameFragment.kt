@@ -52,7 +52,7 @@ class ChangeUsernameFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
-        mBinding.settingsInputUsername.setText(USER.username)
+        mBinding.settingsInputUsername.setText(USERModel.username)
         mBinding.settingsChangeUsernameChooseText.text =
             getString(R.string.settings_default_change_username_able)
 
@@ -93,8 +93,8 @@ class ChangeUsernameFragment : Fragment() {
 
             REF_DATABASE_ROOT.child(NODE_USERNAME)
                 .addListenerForSingleValueEvent(AppValueEventListener {
-                    if (it.hasChild(mNewUsername) || mNewUsername.equals(USER.username)) {
-                        if (mNewUsername.equals(USER.username)) fragmentManager?.popBackStack()
+                    if (it.hasChild(mNewUsername) || mNewUsername.equals(USERModel.username)) {
+                        if (mNewUsername.equals(USERModel.username)) fragmentManager?.popBackStack()
                         else mBinding.settingsChangeUsernameChooseText.text =
                             getText(R.string.settings_default_change_username_unable)
                     } else changeUserName()
@@ -126,11 +126,11 @@ class ChangeUsernameFragment : Fragment() {
     }
 
     private fun deleteOldUserName() {
-        REF_DATABASE_ROOT.child(NODE_USERNAME).child(USER.username).removeValue()
+        REF_DATABASE_ROOT.child(NODE_USERNAME).child(USERModel.username).removeValue()
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     fragmentManager?.popBackStack()
-                    USER.username = mNewUsername
+                    USERModel.username = mNewUsername
                 }
             }
     }
