@@ -16,10 +16,11 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import uz.uchqun.telegramclone.R
-import uz.uchqun.telegramclone.ui.fragments.contacts.ContactsFragment
-import uz.uchqun.telegramclone.ui.fragments.settings.SettingsFragment
+import uz.uchqun.telegramclone.ui.screens.contacts.ContactsFragment
+import uz.uchqun.telegramclone.ui.screens.settings.SettingsFragment
 import uz.uchqun.telegramclone.utils.APP_ACTIVITY
-import uz.uchqun.telegramclone.utils.USERModel
+import uz.uchqun.telegramclone.database.USER
+import uz.uchqun.telegramclone.ui.screens.groups.AddContactsFragment
 import uz.uchqun.telegramclone.utils.downloadAndSetImage
 import uz.uchqun.telegramclone.utils.replaceFragment
 
@@ -126,17 +127,18 @@ class AppDrawer {
 
     private fun clickToItem(position: Int) {
         when (position) {
-            4 -> APP_ACTIVITY.replaceFragment(ContactsFragment())
-            7 -> APP_ACTIVITY.replaceFragment(SettingsFragment())
+            1 -> replaceFragment(AddContactsFragment())
+            4 -> replaceFragment(ContactsFragment())
+            7 -> replaceFragment(SettingsFragment())
         }
 
     }
 
     private fun createHeader() {
         mCurrentProfile = ProfileDrawerItem()
-            .withName(USERModel.fullname)
-            .withEmail(USERModel.phone)
-            .withIcon(USERModel.photoUrl)
+            .withName(USER.fullname)
+            .withEmail(USER.phone)
+            .withIcon(USER.photoUrl)
             .withIdentifier(200)
         mHeader = AccountHeaderBuilder()
             .withActivity(APP_ACTIVITY)
@@ -148,9 +150,9 @@ class AppDrawer {
 
     fun updateHeader() {
         mCurrentProfile
-            .withName(USERModel.fullname)
-            .withEmail(USERModel.phone)
-            .withIcon(USERModel.photoUrl)
+            .withName(USER.fullname)
+            .withEmail(USER.phone)
+            .withIcon(USER.photoUrl)
         mHeader.updateProfile(mCurrentProfile)
     }
 

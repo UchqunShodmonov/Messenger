@@ -6,7 +6,7 @@
     <string name="settings_text_account">Account</string>
     <string name="settings_default_number">+998933165960</string>
     <string name="settings_default_label_phone_number">Tap to change phone number</string>
-    <string name="settings_default_login">"@ShodmonovUchqun"</string>
+    <string name="settings_default_login">ShodmonovUchqun</string>
     <string name="settings_default_label_login">Username</string>
     <string name="settings_default_bio">Android Developer from Uzbekistan</string>
     <string name="settings_default_label_bio">Bio</string>
@@ -25,11 +25,21 @@
     <string name="settings_hint_input_last_name">Last name (optional)</string>
     <string name="settings_toast_name_is_empty">Please enter First name</string>
     <string name="toast_data_update">Data update</string>
-    <string name="settings_hint_input_username">"@username"</string>
+    <string name="settings_hint_input_username">username</string>
     <string name="settings_default_change_username_choose">Choose your username</string>
     <string name="settings_default_advanced">You can choose a username on Telegram.If you do, people will be able to find you by this username and contact you without needing your phone number.\nYou can use a-z, 0-9 and underscores. Minimum length is 5 characters.</string>
     <string name="settings_default_change_username_unable">This username is already occupied</string>
     <string name="settings_default_change_username_able">This username is available</string>
     <string name="settings_hint_input_bio">Bio</string>
     <string name="settings_default_bio_advice">Any details such as age,occupation or city.\nExample: 23.y.o Android developer from Uzbekistan</string>
+    <string name="clear_chat">clear chat</string>
+    <string name="delete_chat">Delete Chat</string>
+    <string name="create_group_name_hint">Enter Group Name</string>
+    <string name="create_group">New Group</string>
+
+
+    <plurals name="count_members">
+        <item quantity="one">% account</item>
+        <item quantity="other">% accounts</item>
+    </plurals>
 </resources>

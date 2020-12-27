@@ -2,58 +2,50 @@ package uz.uchqun.telegramclone.utils
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.provider.ContactsContract
-import android.text.Editable
-import android.text.TextWatcher
+import android.provider.OpenableColumns
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
+import uz.uchqun.telegramclone.MainActivity
 import uz.uchqun.telegramclone.R
-import uz.uchqun.telegramclone.model.CommanModel
+import uz.uchqun.telegramclone.model.CommonModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun showToast(message: String) {
+    // The function shows the message
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
 }
 
-fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
-    val intent = Intent(this, activity::class.java)
-    startActivity(intent)
-    this.finish()
+
+fun restartActivity() {
+    // Extension function for AppCompat Activity, allows you to run the activity
+    val intent = Intent(APP_ACTIVITY, MainActivity::class.java)
+    APP_ACTIVITY.startActivity(intent)
+    APP_ACTIVITY.finish()
 }
 
-fun AppCompatActivity.replaceFragment(fragment: Fragment) {
-    supportFragmentManager.beginTransaction()
-        .addToBackStack(null)
-        .replace(R.id.data_container, fragment)
-        .commit()
-}
 
-fun Fragment.replaceFragment(fragment: Fragment) {
-    this.fragmentManager?.beginTransaction()
-        ?.addToBackStack(null)
-        ?.replace(R.id.data_container, fragment)
-        ?.commit()
-}
-
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        }
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        }
-
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
-        }
-    })
+fun replaceFragment(fragment: Fragment, addStack: Boolean = true) {
+    // Extension function for AppCompat Activity, allows you to install fragments
+    if (addStack) {
+        APP_ACTIVITY.supportFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.data_container, fragment)
+            .commit()
+    } else {
+        APP_ACTIVITY.supportFragmentManager.beginTransaction()
+            .replace(R.id.data_container, fragment)
+            .commit()
+    }
 }
 
 fun hideKeyboard() {
+    //The function hides the keyboard
     val im: InputMethodManager =
         APP_ACTIVITY.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     im.hideSoftInputFromWindow(APP_ACTIVITY.window.decorView.windowToken, 0)
@@ -61,19 +53,18 @@ fun hideKeyboard() {
 
 
 fun ImageView.downloadAndSetImage(url: String) {
-    Picasso.get()
+    //Download image and set it
+    Glide.with(this)
         .load(url)
-        .fit()
         .placeholder(R.drawable.default_photo)
         .into(this)
 }
 
 fun initContacts() {
-
     //Reading contacts
     if (checkPermision(READ_CONTACT)) {
-        var arrayContacts = arrayListOf<CommanModel>()
-        var cursor = APP_ACTIVITY.contentResolver.query(
+        val arrayContacts = arrayListOf<CommonModel>()
+        val cursor = APP_ACTIVITY.contentResolver.query(
             ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
             null,
             null,
@@ -86,14 +77,44 @@ fun initContacts() {
                     it.getString(it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
                 val phone =
                     it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                val newModul = CommanModel()
-                newModul.fullname = fullName
-                newModul.phone = phone.replace(Regex("[\\s,-]"), "")
-                arrayContacts.add(newModul)
+                val newModel = CommonModel()
+                newModel.fullname = fullName
+                newModel.phone = phone.replace(Regex("[\\s,-]"), "")
+                arrayContacts.add(newModel)
             }
         }
         cursor?.close()
-        updatePhoneToDatabase(arrayContacts)
+        updatePhonesToDatabase(arrayContacts)
     }
 
 }
+
+
+fun String.asTime(): String {
+    //change format time
+    val time = Date(this.toLong())
+    val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+    return timeFormat.format(time)
+}
+
+fun getFilenameFromUri(uri: Uri): String {
+    var result = ""
+    val cursor = APP_ACTIVITY.contentResolver.query(uri, null, null, null, null)
+    try {
+        if (cursor != null && cursor.moveToNext()) {
+            result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+        }
+    } catch (e: Exception) {
+        showToast(e.message.toString())
+    } finally {
+        cursor?.close()
+        return result
+    }
+}
+
+
+fun getPlurals(count: Int) = APP_ACTIVITY.resources.getQuantityString(
+    R.plurals.count_members, count, count
+)
+
+

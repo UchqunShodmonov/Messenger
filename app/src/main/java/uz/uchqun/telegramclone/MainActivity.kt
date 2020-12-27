@@ -8,19 +8,18 @@ import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import uz.uchqun.telegramclone.activities.RegisterActivity
+import uz.uchqun.telegramclone.database.AUTH
 import uz.uchqun.telegramclone.databinding.ActivityMainBinding
-import uz.uchqun.telegramclone.databinding.ToolbarInfoBinding
-import uz.uchqun.telegramclone.ui.fragments.chats.ChatsFragment
+import uz.uchqun.telegramclone.ui.screens.main_list.MainListFragment
+import uz.uchqun.telegramclone.ui.screens.register.EnterPhoneNumberFragment
 import uz.uchqun.telegramclone.ui.objects.AppDrawer
 import uz.uchqun.telegramclone.utils.*
 
 class MainActivity : AppCompatActivity() {
 
-     lateinit var mBinding: ActivityMainBinding
+    lateinit var mBinding: ActivityMainBinding
     lateinit var mAppDrawer: AppDrawer
     lateinit var mToolbar: MaterialToolbar
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,12 +43,12 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initFunc() {
+        setSupportActionBar(mToolbar)
         if (AUTH.currentUser != null) {
-            setSupportActionBar(mToolbar)
             mAppDrawer.create()
-            replaceFragment(ChatsFragment())
+            replaceFragment(MainListFragment(),false)
         } else {
-            replaceActivity(RegisterActivity())
+            replaceFragment(EnterPhoneNumberFragment(),false)
         }
     }
 
@@ -86,7 +85,5 @@ class MainActivity : AppCompatActivity() {
             initContacts()
         }
     }
-
-
 
 }

@@ -7,7 +7,7 @@
     android:layout_margin="@dimen/app_margin">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:visibility="gone"
+
         android:id="@+id/contact_photo"
         android:layout_width="@dimen/settings_change_photo_height"
         android:layout_height="@dimen/settings_change_photo_width"
@@ -17,7 +17,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/contact_fullname"
         style="@style/normalText"
         android:text="Shodmonov Uchqun"
@@ -25,7 +24,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/contact_status"
         style="@style/smallText"
         android:text="online"

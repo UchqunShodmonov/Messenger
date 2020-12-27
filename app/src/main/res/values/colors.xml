@@ -7,8 +7,8 @@
     <color name="colorGrey">#A6A5A5</color>
     <color name="colorAccessDark">#C6C3C3</color>
     <color name="colorRed">#ED1313</color>
-    <color name="colorGreen">#5FED65</color>
-    <color name="colorBlueWish">#62BEEC</color>
+    <color name="colorGreen">#90EC94</color>
+    <color name="colorBlueWish">#7EB5D1</color>
 
 
 
@@ -35,6 +35,7 @@
     <color name="material_drawer_selected_text">#2196F3</color>
     <color name="material_drawer_header_selection_text">@color/colorAccent</color>
     <color name="material_drawer_header_selection_subtext">@color/colorAccessDark</color>
+    <color name="colorGreenDark">#0DB10A</color>
 
 
 </resources>

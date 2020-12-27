@@ -1,5 +1,7 @@
 package uz.uchqun.telegramclone.utils
 
+import uz.uchqun.telegramclone.database.*
+
 enum class AppStates(val state: String) {
     ONLINE("online"),
     OFFLINE("offline"),
@@ -12,7 +14,7 @@ enum class AppStates(val state: String) {
                     .child(CHILD_STATE).setValue(
                         appStates.state
                     )
-                    .addOnSuccessListener { USERModel.status = appStates.state }
+                    .addOnSuccessListener { USER.status = appStates.state }
                     .addOnFailureListener {
                         showToast(it.message.toString())
                     }
