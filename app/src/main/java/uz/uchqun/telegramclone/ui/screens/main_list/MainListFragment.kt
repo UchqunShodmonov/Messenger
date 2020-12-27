@@ -37,7 +37,6 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
                 when (model.type) {
                     TYPE_CHAT -> showChat(model)
                     TYPE_GROUP -> showGroup(model)
-
                 }
 
             }

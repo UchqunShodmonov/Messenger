@@ -218,8 +218,9 @@ class SingleChatFragment(private val contact: CommonModel) :
         } else APP_ACTIVITY.mBinding.toolbarInfo.toolbarChatFullname.text =
             mReceivingUserModel.fullname
 
+
         APP_ACTIVITY.mBinding.toolbarInfo.toolbarChatImage.downloadAndSetImage(mReceivingUserModel.photoUrl)
-        APP_ACTIVITY.mBinding.toolbarInfo.toolbarChatStatus.text = mReceivingUserModel.status
+        APP_ACTIVITY.mBinding.toolbarInfo.toolbarChatStatus.text = mReceivingUserModel.state
     }
 
 

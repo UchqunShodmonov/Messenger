@@ -14,7 +14,7 @@ enum class AppStates(val state: String) {
                     .child(CHILD_STATE).setValue(
                         appStates.state
                     )
-                    .addOnSuccessListener { USER.status = appStates.state }
+                    .addOnSuccessListener { USER.state = appStates.state }
                     .addOnFailureListener {
                         showToast(it.message.toString())
                     }

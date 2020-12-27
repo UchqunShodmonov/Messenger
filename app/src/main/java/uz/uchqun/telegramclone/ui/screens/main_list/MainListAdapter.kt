@@ -11,6 +11,7 @@ import uz.uchqun.telegramclone.R
 import uz.uchqun.telegramclone.model.CommonModel
 import uz.uchqun.telegramclone.ui.screens.single_chats.SingleChatFragment
 import uz.uchqun.telegramclone.utils.downloadAndSetImage
+import uz.uchqun.telegramclone.utils.replaceFragment
 
 class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
 
@@ -22,7 +23,7 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
             LayoutInflater.from(parent.context).inflate(R.layout.main_list_item, parent, false)
 
         val holder = MainListHolder(view)
-        holder.itemView.setOnClickListener { SingleChatFragment(listItems[holder.adapterPosition]) }
+        holder.itemView.setOnClickListener { replaceFragment(SingleChatFragment(listItems[holder.adapterPosition])) }
         return holder
     }
 
@@ -30,6 +31,7 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
         holder.itemName.text = listItems[position].fullname
         holder.itemLastMessage.text = listItems[position].lastMessage
         holder.itemPhoto.downloadAndSetImage(listItems[position].photoUrl)
+
     }
 
     fun updateListItems(item: CommonModel) {

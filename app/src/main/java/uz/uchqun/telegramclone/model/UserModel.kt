@@ -5,7 +5,7 @@ data class UserModel(
     var username: String = "",
     var bio: String = "",
     var fullname: String = "",
-    var status: String = "",
+    var state: String = "",
     var phone: String = "",
     var photoUrl: String = "empty"
 )
